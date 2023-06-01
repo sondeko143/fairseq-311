@@ -3,6 +3,7 @@
 # This source code is licensed under the MIT license found in the
 # LICENSE file in the root directory of this source tree.
 """isort:skip_file"""
+from dataclasses import _MISSING_TYPE
 
 import logging
 from hydra.core.config_store import ConfigStore
@@ -19,7 +20,8 @@ def hydra_init(cfg_name="config") -> None:
     cs.store(name=f"{cfg_name}", node=FairseqConfig)
 
     for k in FairseqConfig.__dataclass_fields__:
-        v = FairseqConfig.__dataclass_fields__[k].default
+        default_v = FairseqConfig.__dataclass_fields__[k].default
+        v = default_v if not isinstance(default_v, _MISSING_TYPE) else FairseqConfig.__dataclass_fields__[k].default_factory()
         try:
             cs.store(name=k, node=v)
         except BaseException:
