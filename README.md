@@ -1,3 +1,7 @@
+This is only a trial version aimed at addressing dataclass issues in Python 3.11.
+
+------
+
 <p align="center">
   <img src="docs/fairseq_logo.png" width="150">
   <br />
